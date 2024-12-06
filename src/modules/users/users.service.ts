@@ -1,9 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { User } from './models/user.model';
 import * as bcrypt from 'bcrypt';
 import { CreateUserDTO } from './dto';
-import { AppErrors } from '../../common/constants/errors';
 
 @Injectable()
 export class UsersService {
@@ -32,5 +31,12 @@ export class UsersService {
     await this.userRepository.create(newUser);
 
     return dto;
+  }
+
+  async publicUser(email: string) {
+    return this.userRepository.findOne({
+      where: { email },
+      attributes: { exclude: ['password'] },
+    });
   }
 }
