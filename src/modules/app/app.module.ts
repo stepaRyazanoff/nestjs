@@ -8,12 +8,14 @@ import configurations from '../../configurations';
 import { User } from '../users/models/user.model';
 import { AuthModule } from '../auth/auth.module';
 import { TokenModule } from '../token/token.module';
+import { WatchlistModule } from '../watchlist/watchlist.module';
 
 @Module({
   imports: [
     TokenModule,
     UsersModule,
     AuthModule,
+    WatchlistModule,
     ConfigModule.forRoot({
       isGlobal: true,
       load: [configurations],
