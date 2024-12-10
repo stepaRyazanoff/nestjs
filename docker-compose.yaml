@@ -1,0 +1,32 @@
+version: '3.9' # Версия Docker Compose
+
+services:
+  postgres:
+    image: postgres:15 # Указываем версию PostgreSQL
+    container_name: postgres_container
+    restart: always
+    environment:
+      POSTGRES_HOST: localhost
+      POSTGRES_USER: myuser      # Имя пользователя
+      POSTGRES_PASSWORD: mypassword  # Пароль
+      POSTGRES_DB: mydatabase    # Название базы данных
+    ports:
+      - "5432:5432"              # Проброс порта (хост:контейнер)
+    volumes:
+      - postgres_data:/var/lib/postgresql/data # Хранение данных
+
+  redis:
+    image: redis:7 # Указываем версию Redis
+    container_name: redis_container
+    restart: always
+    ports:
+      - "6379:6379"              # Проброс порта
+    command: [ "redis-server", "--appendonly", "yes" ] # Включаем персистентность
+    volumes:
+      - redis_data:/data         # Хранение данных
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
