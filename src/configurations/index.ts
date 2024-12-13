@@ -6,5 +6,7 @@ export default function () {
     db_user: process.env.POSTGRES_USER,
     db_password: process.env.POSTGRES_PASSWORD,
     db_name: process.env.POSTGRES_DB,
+    jwt_secret: process.env.SECRET_JWT,
+    jwt_expires: process.env.EXPIRES_JWT,
   };
 }
