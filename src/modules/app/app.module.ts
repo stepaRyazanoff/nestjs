@@ -1,14 +1,18 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UserModule } from '../users/user.module';
+import { UsersModule } from '../users/usersModule';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import configurations from '../../configurations';
 import { SequelizeModule } from '@nestjs/sequelize';
+import { AuthModule } from '../auth/auth.module';
+import { TokenModule } from '../token/token.module';
 
 @Module({
   imports: [
-    UserModule,
+    UsersModule,
+    AuthModule,
+    TokenModule,
     ConfigModule.forRoot({
       isGlobal: true,
       load: [configurations],
@@ -26,7 +30,6 @@ import { SequelizeModule } from '@nestjs/sequelize';
           password: configService.get('db_password'),
           synchronize: true,
           autoLoadModels: true,
-          models: [],
         };
       },
     }),
